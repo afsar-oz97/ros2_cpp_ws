@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/home/sensen/Workspaces/ros2_cpp_ws/src/calculate_robot_speed/build/calculate_robot_speed/rpm_publisher" "TARGETS" "rpm_publisher" "DESTINATION" "lib/calculate_robot_speed")

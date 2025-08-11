@@ -1,0 +1,4 @@
+source;share/calculate_robot_speed/local_setup.bash
+source;share/calculate_robot_speed/local_setup.dsv
+source;share/calculate_robot_speed/local_setup.sh
+source;share/calculate_robot_speed/local_setup.zsh
