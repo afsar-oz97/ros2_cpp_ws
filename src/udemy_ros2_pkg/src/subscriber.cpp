@@ -18,6 +18,10 @@ class HelloWorldSubNode: public rclcpp::Node
         void sub_callback(const std_msgs::msg::String &msg) const
         {
             std::cout<< msg.data << std::endl;
+            // RCLCPP_INFO(this->get_logger(), msg.data.c_str());
+            // RCLCPP_WARN(this->get_logger(), msg.data.c_str()); 
+            // RCLCPP_DEBUG(this->get_logger(), msg.data.c_str()); 
+            // RCLCPP_ERROR(this->get_logger(), msg.data.c_str());
         }  
 
 
