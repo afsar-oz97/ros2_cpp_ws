@@ -1,1 +1,0 @@
-/home/sensen/Workspaces/ros2_cpp_ws/src/calculate_robot_speed/build/calculate_robot_speed/ament_cmake_environment_hooks/local_setup.zsh

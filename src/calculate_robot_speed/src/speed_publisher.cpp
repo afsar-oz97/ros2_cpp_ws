@@ -4,7 +4,7 @@
 #include <functional>
 using namespace std::chrono_literals;
 
-const double WHEEL_RADIUS = 12.5/100;
+const double DEFAULT_WHEEL_RADIUS = 12.5/100;
 
 class SpeedPublisherNode : public rclcpp::Node
 {
@@ -14,14 +14,16 @@ class SpeedPublisherNode : public rclcpp::Node
         {
             rpm_subscriber_ = this->create_subscription<std_msgs::msg::Float64>(
                 "robot_rpm", 10, std::bind(&SpeedPublisherNode::calculate_pub_speed, this, std::placeholders::_1));
+            this->declare_parameter<double>("wheel_radius", DEFAULT_WHEEL_RADIUS);
             speed_publisher_ = this->create_publisher<std_msgs::msg::Float64>("robot_speed", 10); // robot_speed is the topic
 
         }
     private:
         void calculate_pub_speed(const std_msgs::msg::Float64 &rpm) const
         {
+            rclcpp::Parameter wheel_radius_param = this->get_parameter("wheel_radius");
             auto speed = std_msgs::msg::Float64();
-            speed.data = rpm.data * WHEEL_RADIUS * 2 * M_PI / 60; // Convert RPM to m/s
+            speed.data = rpm.data * (2 * M_PI * wheel_radius_param.as_double()) / 60; // Convert RPM to m/s
             speed_publisher_->publish(speed);
             std::cout << "Published Speed: " << speed.data << " m/s" << std::endl;
         }

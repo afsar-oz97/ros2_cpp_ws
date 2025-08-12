@@ -1,7 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"/home/sensen/Workspaces/ros2_cpp_ws/src/calculate_robot_speed/build/calculate_robot_speed/cmake_install.cmake"
-	],
-	"Parallel" : false
-}
