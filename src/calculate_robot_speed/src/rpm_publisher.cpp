@@ -4,7 +4,7 @@
 #include <functional>
 using namespace std::chrono_literals;
 
-const double RPM_VALUE = 100.0; // Example RPM value, to be replaced with actual logic
+const double RPM__DEFAULT_VALUE = 100.0; // Example RPM value, to be replaced with actual logic
 
 class RpmPublisherNode : public rclcpp::Node
 {
@@ -16,20 +16,24 @@ class RpmPublisherNode : public rclcpp::Node
             // subscriber_ = this->create_subscription<std_msgs::msg::Float64>(
             //     "robot_speed", 10, std::bind(&RpmPublisherNode::rpm_callback, this, std::placeholders::_1));
 
+            this->declare_parameter<double>("rpm_value", RPM__DEFAULT_VALUE);
+
             timer_ = this->create_wall_timer(
                 1s, std::bind(&RpmPublisherNode::publish_rpm, this));
 
             std::cout << "RPM Publisher Node Initialized" << std::endl;
         }
     private:
-        void publish_rpm() const
+        void publish_rpm() 
         {
             auto rpm = std_msgs::msg::Float64();
-            rpm.data = RPM_VALUE; // Replace with actual logic to calculate RPM
+            rclcpp::Parameter rpm_value_param = this->get_parameter("rpm_value");
+            rpm.data = rpm_value_param.as_double();
             publisher_->publish(rpm);
         }
         rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr publisher_;
         rclcpp::TimerBase::SharedPtr timer_;
+        // double rpm_value_parameter_ = RPM__DEFAULT_VALUE;
 };
 
 int main (int argc, char* argv[])
